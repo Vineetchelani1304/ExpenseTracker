@@ -16,7 +16,6 @@ exports.Signup = async (req,res) => {
                 message:"password and confirm password do not match"
             })
         }
-
         const encryptedPass = await bcrypt.hash(password,10);
         
         const NewUser = await User.create({
