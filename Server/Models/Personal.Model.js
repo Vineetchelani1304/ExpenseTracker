@@ -4,10 +4,17 @@ const Personal = new mongoose.Schema({
         type: 'string',
         required: true
     }],
+    itemsCount:{
+        type: 'integer',
+        required: true
+    },
     totalCost:{
         type: 'string',
         required: true,
     },
+    photos:{
+        type: 'string',
+    }
 },{
     timestamps:true
 })

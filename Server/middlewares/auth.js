@@ -4,32 +4,35 @@ require('dotenv').config();
 
 exports.auth = async (req, res, next) => {
     try {
-        const token = req.cookies.token || req.header("Authorisation").replace("Bearer ", "") || req.body.token;
+        // Retrieve token from cookies, authorization header, or request body
+        const token = req.cookies.token || req.header("Authorization").replace("Bearer ", "") || req.body.token;
+        console.log("token :",token)
 
         if (!token) {
             return res.status(403).json({
                 success: false,
-                message: "token not found"
-            })
-        }
-        try {
-            const decode = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decode);
-            req.user = decode;
-        }
-        catch (err) {
-            //verification - issue
-            return res.status(401).json({
-                success: false,
-                message: 'token is invalid',
+                message: "Token not found"
             });
         }
-        next();
-    } catch (error) {
-        return res.status(401).json({
-            success: false,
-            message: 'Something went wrong while validating the token',
-        });
 
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("decoded :",decoded)
+        req.user = decoded; // Attach user information to the request object
+        next(); // Proceed to the next middleware or route handler
+
+    } catch (error) {
+        console.log("error",error)
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({
+                success: false,
+                message: 'Token is invalid',
+            });
+        } else {
+            return res.status(500).json({
+                success: false,
+                message: 'Something went wrong while validating the token',
+            });
+        }
     }
-}
+};
