@@ -1,44 +1,62 @@
 const Share = require('../Models/Share.Model');
 const Expense = require('../Models/Expense.Model');
 const Personal = require('../Models/Personal.Model');
-
+const User = require('../Models/User.Model')
+const mailSender = require("../utils/emailSender")
 
 exports.createShare = async (req, res) => {
     try {
-        const { 
+        const userId = req.user.id;
+        const {
             expenseId,
             itemsBought,
-            itemsCount, 
-            totalCost, 
-            whoPaid, 
-            paymentDone, 
-            shareCount,
+            itemsCount,
+            totalCost,
+            whoPaid,
+            paymentDone,
+            shareCountEmail,
             // photos 
         } = req.body;
 
+        console.log("shareCountEmail",shareCountEmail)
+        // Ensure shareCountEmail is an array
+        if (!Array.isArray(shareCountEmail)) {
+            return res.status(400).json({
+                success: false,
+                message: "shareCountEmail must be an array"
+            });
+        }
+
         const checkexpense = await Expense.findById(expenseId);
 
-        console.log("Retrieved Expense:", checkexpense);
+        if (!checkexpense) {
+            return res.status(404).send({
+                success: false,
+                message: "Expense not found"
+            });
+        }
 
-        // Check if the expense already has a share or personal field
-        if (checkexpense) {
-            if (checkexpense.share) {
-                console.log("Expense already has a share entry:", checkexpense.share);
-            }
-            if (checkexpense.personal) {
-                console.log("Expense already has a personal entry:", checkexpense.personal);
-            }
+        if (checkexpense.share || checkexpense.personal) {
+            return res.status(402).json({
+                success: false,
+                message: "Expense already has a share or personal entry. Each expense must have only one expenditure."
+            });
+        }
 
-            if (checkexpense.share || checkexpense.personal) {
-                return res.status(402).json({
-                    success: false,
-                    message: "Expense already has a share or personal entry. Each expense must have only one expenditure."
-                });
-            }
+        const user = await User.findById(userId);
+        console.log("emails :",shareCountEmail)
+
+        // Send email to all shareCountEmail recipients
+        if (user) {
+            await mailSender(
+                shareCountEmail, 
+                "Expenditure Share", 
+                `You have been added to an expense in sharing with ${shareCountEmail.join(', ')} by ${user.email}. Want to explore our website ExpenseTracker?`
+            );
         }
 
         // Check if all required fields are provided
-        if (!itemsBought || !itemsCount || !totalCost || !whoPaid || !paymentDone || !shareCount) {
+        if (!itemsBought || !itemsCount || !totalCost || !whoPaid || !paymentDone || shareCountEmail.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: "All required fields must be provided"
@@ -46,27 +64,26 @@ exports.createShare = async (req, res) => {
         }
 
         // Calculate perHead
-        const perHead = itemsCount / shareCount;
+        const perHead = totalCost / shareCountEmail.length;
 
         // Create new share record
         const newShare = await Share.create({
             itemsBought,
-            itemsCount, 
-            totalCost, 
-            perHead, 
-            whoPaid, 
-            paymentDone, 
-            shareCount,
+            itemsCount,
+            totalCost,
+            perHead,
+            whoPaid,
+            paymentDone,
+            shareCountEmail,
             // photos 
         });
-        console.log("newShare",newShare)
-        
+
         const updateExpense = await Expense.findByIdAndUpdate(
             expenseId,
-            { share : newShare },
+            { share: newShare._id },
             { new: true }
-        ).populate("share"); // Populate the 'share' field in the Expense model
-        console.log(updateExpense);
+        ).populate("share");
+
         return res.status(201).json({
             success: true,
             data: updateExpense,
@@ -82,7 +99,6 @@ exports.createShare = async (req, res) => {
     }
 };
 
-
 exports.CreatePersonal = async (req, res) => {
     try {
         const { expenseId } = req.body;
@@ -94,6 +110,13 @@ exports.CreatePersonal = async (req, res) => {
         }
 
         const checkexpense = await Expense.findById(expenseId);
+
+        if (!checkexpense) {
+            return res.status(404).json({
+                success: false,
+                message: "Expense not found"
+            });
+        }
 
         console.log("Retrieved Expense:", checkexpense);
 

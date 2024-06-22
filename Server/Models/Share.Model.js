@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Share = new mongoose.Schema({
+const ShareSchema = new mongoose.Schema({
     itemsBought: [{
         type: String,
         required: true
@@ -10,11 +10,11 @@ const Share = new mongoose.Schema({
         required: true
     },
     totalCost: {
-        type: String,
+        type: Number,  // Change this to Number to match with the nature of cost
         required: true,
     },
     perHead: {
-        type: String,
+        type: Number,  // Change this to Number to match with the nature of cost per head
         required: true
     },
     whoPaid: {
@@ -25,8 +25,8 @@ const Share = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    shareCount: [{
-        type: String,  // Define as String, not 'string'
+    shareCountEmail: [{
+        type: String,  
         required: true
     }],
     photos: {
@@ -36,4 +36,4 @@ const Share = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("Share", Share);
+module.exports = mongoose.model("Share", ShareSchema);

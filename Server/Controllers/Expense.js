@@ -1,6 +1,8 @@
 const Expenses = require('../Models/Expense.Model');
 const User = require('../Models/User.Model');
 const History = require('../Models/History.Model');
+const Share = require('../Models/Share.Model');
+const Personal = require('../Models/Personal.Model');
 exports.createExpense = async (req, res) => {
     try {
         const userId = req.user.id; // Ensure req.user.id is correctly retrieved
@@ -87,6 +89,17 @@ exports.SettleExpense = async (req, res) => {
         const populatedHistory = await History.findById(history._id).populate('expense');
         console.log("History created: ", populatedHistory);
 
+        // Delete associated Share or Personal entries
+        if (settleExpense.share) {
+            const shareId = settleExpense.share;
+            await Share.findByIdAndDelete(shareId);
+        }
+        if (settleExpense.personal) {
+            const personalId = settleExpense.personal;
+            await Personal.findByIdAndDelete(personalId);
+        }
+
+        // Delete the expense
         const deletedExpense = await Expenses.findByIdAndDelete(expenseId);
         if (deletedExpense) {
             return res.status(200).json({
