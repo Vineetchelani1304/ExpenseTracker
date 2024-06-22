@@ -1,6 +1,6 @@
 const Expenses = require('../Models/Expense.Model');
 const User = require('../Models/User.Model');
-
+const History = require('../Models/History.Model');
 exports.createExpense = async (req, res) => {
     try {
         const userId = req.user.id; // Ensure req.user.id is correctly retrieved
@@ -67,7 +67,6 @@ exports.SettleExpense = async (req, res) => {
 
         const { expenseId } = req.body;
         console.log("Settle Expense: ", expenseId);
-
         if (!expenseId) {
             return res.status(402).json({
                 success: false,
@@ -83,7 +82,10 @@ exports.SettleExpense = async (req, res) => {
             });
         }
 
-        // Add expense into history if needed (this part is not implemented in your code)
+        // Add expense into history
+        const history = await History.create({ expense: settleExpense });
+        const populatedHistory = await History.findById(history._id).populate('expense');
+        console.log("History created: ", populatedHistory);
 
         const deletedExpense = await Expenses.findByIdAndDelete(expenseId);
         if (deletedExpense) {
