@@ -15,9 +15,9 @@ const Expenses = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Share"
     },
-    personal:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Personal"
+    personal: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Personal'
     },
 
 },{

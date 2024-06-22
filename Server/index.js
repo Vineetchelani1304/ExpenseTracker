@@ -4,10 +4,9 @@ const { Signup } = require('./Controllers/Signup');
 const { Login } = require('./Controllers/Login');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
 const { auth } = require('./middlewares/auth');
 const { createExpense, SettleExpense } = require('./Controllers/Expense');
-const { createShare } = require('./Controllers/Category');
+const { createShare, CreatePersonal } = require('./Controllers/Category');
 
 const app = express();
 const PORT = 4000;
@@ -28,6 +27,7 @@ app.post('/signup',Signup);
 app.post('/login',Login);
 app.post('/createExpense',auth,createExpense);
 app.post('/createShare',auth,createShare);
+app.post('/createPersonal',auth,CreatePersonal);
 app.delete('/settleExpense',auth,SettleExpense);
 app.get('/',(req,res)=>{
     res.send("hey there")

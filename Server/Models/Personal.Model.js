@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 const Personal = new mongoose.Schema({
     itemsBought:[{
-        type: 'string',
+        type: String,
         required: true
     }],
     itemsCount:{
-        type: 'integer',
+        type: Number,
         required: true
     },
     totalCost:{
-        type: 'string',
+        type: String,
         required: true,
     },
     photos:{
-        type: 'string',
+        type: String,
     }
 },{
     timestamps:true
