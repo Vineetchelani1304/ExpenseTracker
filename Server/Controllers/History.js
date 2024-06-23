@@ -1,6 +1,6 @@
 const History = require('../Models/History.Model');
 const User = require('../Models/User.Model');
-const Expenses = require('../Models/Expenses.Model');
+const Expenses = require('../Models/Expense.Model');
 
 exports.deleteHistory = async (req,res) => {
     try {

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const { auth } = require('./middlewares/auth');
 const { createExpense, SettleExpense, getUserExpenses, getExpenseDetails } = require('./Controllers/Expense');
 const { createShare, CreatePersonal } = require('./Controllers/Category');
+const { deleteHistory } = require('./Controllers/History');
 
 const app = express();
 const PORT = 4000;
@@ -31,6 +32,7 @@ app.post('/createPersonal',auth,CreatePersonal);
 app.delete('/settleExpense',auth,SettleExpense);
 app.get('/getUserExpenses',auth,getUserExpenses);
 app.get('/expenses/:expenseId',auth, getExpenseDetails);
+app.delete('/deleteHistory',auth, deleteHistory);
 app.get('/',(req,res)=>{
     res.send("hey there")
 })
