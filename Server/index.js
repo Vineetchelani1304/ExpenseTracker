@@ -5,7 +5,7 @@ const { Login } = require('./Controllers/Login');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { auth } = require('./middlewares/auth');
-const { createExpense, SettleExpense } = require('./Controllers/Expense');
+const { createExpense, SettleExpense, getUserExpenses, getExpenseDetails } = require('./Controllers/Expense');
 const { createShare, CreatePersonal } = require('./Controllers/Category');
 
 const app = express();
@@ -29,6 +29,8 @@ app.post('/createExpense',auth,createExpense);
 app.post('/createShare',auth,createShare);
 app.post('/createPersonal',auth,CreatePersonal);
 app.delete('/settleExpense',auth,SettleExpense);
+app.get('/getUserExpenses',auth,getUserExpenses);
+app.get('/expenses/:expenseId',auth, getExpenseDetails);
 app.get('/',(req,res)=>{
     res.send("hey there")
 })

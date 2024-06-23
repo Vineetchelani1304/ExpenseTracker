@@ -7,7 +7,7 @@ exports.createExpense = async (req, res) => {
     try {
         const userId = req.user.id; // Ensure req.user.id is correctly retrieved
         console.log("userId", userId);
-        
+
         const { expenseHeading, descriptions } = req.body;
 
         if (!expenseHeading || !descriptions) {
@@ -99,6 +99,11 @@ exports.SettleExpense = async (req, res) => {
             await Personal.findByIdAndDelete(personalId);
         }
 
+
+        await User.findByIdAndUpdate(userId, {
+            $pull: { expenses: expenseId }
+        }, { new: true });
+
         // Delete the expense
         const deletedExpense = await Expenses.findByIdAndDelete(expenseId);
         if (deletedExpense) {
@@ -121,3 +126,87 @@ exports.SettleExpense = async (req, res) => {
         });
     }
 };
+
+exports.getUserExpenses = async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        if (!userId) {
+            return res.status(401).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Fetch all expenses for the user
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+        const expenses = user.expenses;
+
+        return res.status(200).json({
+            success: true,
+            message: "fetched all expenses by the user",
+            data: user.expenses
+
+        })
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while fetching the expenses"
+        });
+    }
+};
+
+exports.getExpenseDetails = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        const { expenseId } = req.params; // Use req.params to retrieve expenseId
+        let expenseDetails = await Expenses.findById(expenseId);
+
+        if (!expenseDetails) {
+            return res.status(404).json({
+                success: false,
+                message: "Expense not found"
+            });
+        }
+
+        // Conditionally populate based on the presence of share or personal
+        if (expenseDetails.share) {
+            expenseDetails = await Expenses.findById(expenseId).populate('share');
+        } else if (expenseDetails.personal) {
+            expenseDetails = await Expenses.findById(expenseId).populate('personal');
+        }
+
+        console.log("expenseDetails", expenseDetails);
+
+        return res.status(200).json({
+            success: true,
+            message: "Fetched the data",
+            data: expenseDetails
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
+};
+
+

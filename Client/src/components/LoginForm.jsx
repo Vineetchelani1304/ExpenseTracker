@@ -28,7 +28,7 @@ const Login = () => {
             const response = await axios.post('http://localhost:4000/login', formData);
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token);
-                navigate('/');
+                navigate('/createExpense');
             } else {
                 setError(response.data.message);
             }
