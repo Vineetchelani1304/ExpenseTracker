@@ -9,20 +9,24 @@ const CreatePersonal = () => {
     const [itemsBought, setItemsBought] = useState('');
     const [itemsCount, setItemsCount] = useState('');
     const [totalCost, setTotalCost] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         if (!expenseId) {
             setError('No expense ID provided');
+            setLoading(false);
             return;
         }
 
         const token = localStorage.getItem('token');
         if (!token) {
             setError('You must be logged in to create a personal expense');
+            setLoading(false);
             return;
         }
 
@@ -39,13 +43,15 @@ const CreatePersonal = () => {
             });
 
             if (response.data.success) {
-                navigate('/userExpenses');
+                navigate('/');
             } else {
                 setError(response.data.message);
             }
         } catch (err) {
             setError('An error occurred while creating the personal expense');
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -90,9 +96,10 @@ const CreatePersonal = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+                        className={`w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 ${loading ? 'cursor-not-allowed' : ''}`}
+                        disabled={loading}
                     >
-                        Create Personal Expense
+                        {loading ? 'Creating...' : 'Create Personal Expense'}
                     </button>
                 </form>
             </div>

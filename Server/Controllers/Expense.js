@@ -138,22 +138,20 @@ exports.getUserExpenses = async (req, res) => {
             });
         }
 
-        // Fetch all expenses for the user
-        const user = await User.findById(userId);
+        // Fetch the user and populate expenses
+        const user = await User.findById(userId).populate('expenses');
         if (!user) {
             return res.status(404).json({
                 success: false,
                 message: "User not found"
-            })
+            });
         }
-        const expenses = user.expenses;
 
         return res.status(200).json({
             success: true,
-            message: "fetched all expenses by the user",
+            message: "Fetched all expenses by the user",
             data: user.expenses
-
-        })
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -162,6 +160,7 @@ exports.getUserExpenses = async (req, res) => {
         });
     }
 };
+
 
 exports.getExpenseDetails = async (req, res) => {
     try {

@@ -12,20 +12,24 @@ const CreateShare = () => {
     const [whoPaid, setWhoPaid] = useState('');
     const [paymentDone, setPaymentDone] = useState('');
     const [shareCountEmail, setShareCountEmail] = useState('');
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setLoading(true);
 
         if (!expenseId) {
             setError('No expense ID provided');
+            setLoading(false);
             return;
         }
 
         const token = localStorage.getItem('token');
         if (!token) {
             setError('You must be logged in to create a shared expense');
+            setLoading(false);
             return;
         }
 
@@ -45,13 +49,15 @@ const CreateShare = () => {
             });
 
             if (response.data.success) {
-                navigate('/userExpenses');
+                navigate('/');
             } else {
                 setError(response.data.message);
             }
         } catch (err) {
             setError('An error occurred while creating the shared expense');
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -129,9 +135,10 @@ const CreateShare = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+                        className={`w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 ${loading ? 'cursor-not-allowed' : ''}`}
+                        disabled={loading}
                     >
-                        Create Shared Expense
+                        {loading ? 'Creating...' : 'Create Shared Expense'}
                     </button>
                 </form>
             </div>

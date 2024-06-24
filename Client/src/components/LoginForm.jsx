@@ -29,7 +29,7 @@ const Login = () => {
             if (response.data.success) {
                 console.log("token", response.data.token)
                 localStorage.setItem('token', response.data.token);
-                navigate('/createExpense');
+                navigate('/userExpenses');
             } else {
                 setError(response.data.message);
             }
