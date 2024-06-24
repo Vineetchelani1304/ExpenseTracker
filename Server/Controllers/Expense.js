@@ -56,7 +56,6 @@ exports.createExpense = async (req, res) => {
 };
 
 
-
 exports.SettleExpense = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -76,6 +75,7 @@ exports.SettleExpense = async (req, res) => {
             });
         }
 
+        // Retrieve the expense details
         const settleExpense = await Expenses.findById(expenseId);
         if (!settleExpense) {
             return res.status(403).json({
@@ -85,7 +85,7 @@ exports.SettleExpense = async (req, res) => {
         }
 
         // Add expense into history
-        const history = await History.create({ expense: settleExpense }).populate("expense");
+        const history = await History.create({ expense: settleExpense }).populate('expense');
         const populatedHistory = await History.findById(history._id).populate('expense');
         console.log("History created: ", populatedHistory);
 
@@ -99,17 +99,20 @@ exports.SettleExpense = async (req, res) => {
             await Personal.findByIdAndDelete(personalId);
         }
 
-
-        await User.findByIdAndUpdate(userId, {
-            $pull: { expenses: expenseId }
-        }, { new: true });
+        // Update user's expenses list
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $pull: { expenses: expenseId } },
+            { new: true }
+        );
 
         // Delete the expense
         const deletedExpense = await Expenses.findByIdAndDelete(expenseId);
         if (deletedExpense) {
             return res.status(200).json({
                 success: true,
-                message: "Expense settled successfully"
+                message: "Expense settled successfully",
+                history: populatedHistory  // Send history details back to the client
             });
         } else {
             return res.status(500).json({
@@ -126,6 +129,7 @@ exports.SettleExpense = async (req, res) => {
         });
     }
 };
+
 
 exports.getUserExpenses = async (req, res) => {
     try {

@@ -51,7 +51,7 @@ const CreateExpense = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-200">
+        <div className="flex flex-col items-center justify-center min-h-screen ml-[20%] bg-slate-200">
             <div className="bg-slate-800 p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center text-slate-300">Create Expense</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}

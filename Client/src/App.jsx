@@ -7,11 +7,22 @@ import CreateShare from './components/expense/CreateShare';
 import CreatePersonal from './components/expense/CreatePersonal';
 import UserExpenses from './components/expense/UserExpenses';
 import ExpenseDetails from './components/expense/GetExpenseDetails';
+import Navbar from './components/Navbar';
+import SideBar from './components/SideBar';
+import { BarChart } from 'recharts';
 
 
 const App = () => {
   return (
-    <div className=" bg-slate-600">
+    <div className="  relative overflow-hidden">
+      <div className=" flex flex-row">
+        <div className=' w-[20%] border-2 border-slate-300 fixed h-full  '>
+          <SideBar/>
+        </div>
+        <div className='ml-[20%]'>
+          <Navbar/>
+        </div>
+      </div>
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -20,6 +31,7 @@ const App = () => {
         <Route path="/createPersonal" element={<CreatePersonal />} />
         <Route path="/" element={<UserExpenses />} />
         <Route path="/expenses/:expenseId" element={<ExpenseDetails />} />
+        <Route path="/bargraph" element={<BarChart/>} />
       </Routes>
     </div>
   );

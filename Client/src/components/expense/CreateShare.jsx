@@ -62,7 +62,7 @@ const CreateShare = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen ml-[20%] bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center">Create Shared Expense</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}

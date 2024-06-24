@@ -7,6 +7,9 @@ const ExpenseDetails = () => {
     const [expenseDetails, setExpenseDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [settleLoading, setSettleLoading] = useState(false);
+    const [settleError, setSettleError] = useState('');
+    const [settleSuccess, setSettleSuccess] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,6 +44,49 @@ const ExpenseDetails = () => {
         fetchExpenseDetails();
     }, [expenseId]);
 
+
+    const handleSettleExpense = async () => {
+        setSettleError('');
+        setSettleSuccess('');
+        setSettleLoading(true);
+    
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setSettleError('You must be logged in to settle an expense');
+                setSettleLoading(false);
+                return;
+            }
+    
+            console.log('expenseId', expenseId);
+    
+            const response = await axios.post('http://localhost:4000/settleExpense', {
+                expenseId,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            console.log("token", token)
+    
+            if (response.data.success) {
+                setSettleSuccess('Expense settled successfully');
+                navigate('/');
+            } else {
+                setSettleError(response.data.message);
+            }
+        } catch (err) {
+            setSettleError('An error occurred while settling the expense');
+            console.error(err);
+        } finally {
+            setSettleLoading(false);
+        }
+    };
+    
+    
+    
+    
+
     if (loading) {
         return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
     }
@@ -54,12 +100,11 @@ const ExpenseDetails = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-200">
-            <div className="bg-slate-800 p-8 rounded-lg shadow-xl    shadow-slate-900 w-fit max-w-4xl text-slate-200">
+        <div className="flex flex-col items-center justify-center min-h-screen ml-[20%] bg-slate-200">
+            <div className="bg-slate-800 p-8 rounded-lg shadow-xl shadow-slate-900 w-fit max-w-4xl text-slate-200">
                 <h2 className="text-3xl font-bold mb-6 text-center">Expense Details</h2>
                 <h3 className="text-2xl text-slate-300 font-semibold mb-2">{expenseDetails.expenseHeading}</h3>
                 <p className=" mb-2 text-xl text-slate-200 ">{expenseDetails.descriptions}</p>
-                {/* <p className="text-gray-700 mb-2">Total Cost: ${expenseDetails.totalCost}</p> */}
 
                 {expenseDetails.share ? (
                     <div>
@@ -83,12 +128,25 @@ const ExpenseDetails = () => {
                     </div>
                 )}
 
-                <button
-                    onClick={() => navigate('/')}
-                    className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
-                >
-                    Back to Expenses
-                </button>
+                {settleError && <p className="text-red-500">{settleError}</p>}
+                {settleSuccess && <p className="text-green-500">{settleSuccess}</p>}
+
+                <div className=' flex flex-row justify-between'>
+                    <button
+                        onClick={handleSettleExpense}
+                        className={`mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition duration-200 ${settleLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={settleLoading}
+                    >
+                        {settleLoading ? 'Settling...' : 'Settle Expense'}
+                    </button>
+
+                    <button
+                        onClick={() => navigate('/')}
+                        className="mt-4 bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition duration-200"
+                    >
+                        Back to Expenses
+                    </button>
+                </div>
             </div>
         </div>
     );
