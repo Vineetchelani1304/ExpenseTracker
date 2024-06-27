@@ -15,7 +15,7 @@ const Navbar = () => {
     
 
     return (
-        <div className=" flex h-[40px] items-center justify-end border-slate-400 relative ml-[20%]">
+        <div className=" flex h-[40px] items-center justify-end border-slate-400 relative ">
             <div
                 className="bg-blue-600 justify-center rounded-full w-fit font-semibold p-1 px-2 hover:scale-105 text-white hover:cursor-pointer"
                 onClick={() => setShowUserDetails(!showUserDetails)}

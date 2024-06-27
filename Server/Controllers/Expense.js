@@ -143,7 +143,14 @@ exports.getUserExpenses = async (req, res) => {
         }
 
         // Fetch the user and populate expenses
-        const user = await User.findById(userId).populate('expenses');
+        const user = await User.findById(userId).populate({
+            path: 'expenses',
+            populate: {
+                path: 'share personal',
+                select: 'totalCost' // Select the fields you want to populate
+            }
+        });
+
         if (!user) {
             return res.status(404).json({
                 success: false,
