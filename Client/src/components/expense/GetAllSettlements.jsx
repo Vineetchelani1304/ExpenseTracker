@@ -21,7 +21,7 @@ const SettlementHistory = () => {
                 });
 
                 if (response.data.success) {
-                    setHistory(response.data.history);
+                    setHistory(response.data.history );
                 } else {
                     throw new Error(response.data.message);
                 }
