@@ -78,7 +78,7 @@ const UserExpenses = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className=" flex flex-col gap-4">
                             {expenses.map((expense) => (
                                 <div
                                     key={expense._id}
