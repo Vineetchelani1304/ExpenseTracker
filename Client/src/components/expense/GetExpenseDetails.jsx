@@ -100,7 +100,7 @@ const ExpenseDetails = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen ml-[20%] bg-slate-200">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-200">
             <div className="bg-slate-800 p-8 rounded-lg shadow-xl shadow-slate-900 w-fit max-w-4xl text-slate-200">
                 <h2 className="text-3xl font-bold mb-6 text-center">Expense Details</h2>
                 <h3 className="text-2xl text-slate-300 font-semibold mb-2">{expenseDetails.expenseHeading}</h3>

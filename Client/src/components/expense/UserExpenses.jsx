@@ -59,7 +59,7 @@ const UserExpenses = () => {
     }
 
     return (
-        <div className="flex flex-row min-h-screen bg-slate-200 relative ml-[20%] px-3">
+        <div className="flex flex-row min-h-screen bg-slate-200 relative  px-3">
             <div className="flex flex-col w-[50%] mt-4">
                 <div className="w-[100%] text-center border-2 border-slate-300 h-[500px] rounded-xl shadow-lg ml-4">Graph</div>
                 <div className="w-[100%] text-center border-2 border-slate-300 h-[500px] rounded-xl shadow-lg ml-4 mt-6">Graph</div>

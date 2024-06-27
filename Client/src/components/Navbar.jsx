@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const [showUserDetails, setShowUserDetails] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
         localStorage.removeItem('token');
         window.location.href = '/login'; // Redirect to login page or any other page
     };
-
+    
     
 
     return (
