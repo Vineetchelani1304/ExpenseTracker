@@ -85,7 +85,7 @@ exports.SettleExpense = async (req, res) => {
         }
 
         // Add expense into history
-        const history = await History.create({ expense: settleExpense }).populate('expense');
+        const history = (await History.create({ expense: settleExpense })).populate('expense');
         const populatedHistory = await History.findById(history._id).populate('expense');
         console.log("History created: ", populatedHistory);
 
