@@ -13,7 +13,7 @@ const app = express();
 const PORT = 4000;
 app.use(cookieParser());
 app.use(cors({
-    origin: ['http://localhost:5173',"https://expensetracker-rtqz.onrender.com"],
+    origin: ['http://localhost:5173',"https://viexpensetracker-vineet-chelanis-projects.vercel.app"],
     credentials: true
 }));
 app.listen(PORT, () => {
