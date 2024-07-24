@@ -21,7 +21,7 @@ const UserExpenses = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:4000/getUserExpenses', {
+                const response = await axios.get('https://expensetracker-rtqz.onrender.com/getUserExpenses', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

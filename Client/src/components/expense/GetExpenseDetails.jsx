@@ -22,7 +22,7 @@ const ExpenseDetails = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:4000/expenses/${expenseId}`, {
+                const response = await axios.get(`https://expensetracker-rtqz.onrender.com/expenses/${expenseId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -60,7 +60,7 @@ const ExpenseDetails = () => {
     
             console.log('expenseId', expenseId);
     
-            const response = await axios.post('http://localhost:4000/settleExpense', {
+            const response = await axios.post('https://expensetracker-rtqz.onrender.com/settleExpense', {
                 expenseId,
             }, {
                 headers: {

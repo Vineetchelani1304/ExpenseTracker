@@ -10,24 +10,18 @@ import ExpenseDetails from './components/expense/GetExpenseDetails';
 import Navbar from './components/Navbar';
 import SideBar from './components/SideBar';
 import { BarChart } from 'recharts';
+import Rootlayout from './components/layout/Rootlayout';
+
 
 const App = () => {
   const token = localStorage.getItem('token');
   return (
-
-    <div className="relative overflow-hidden min-h-screen">
-      {token && (
-        <div className="flex">
-
-          <div className="ml-[20%] sm:ml-[15%] w-full">
-            <Navbar />
-            <div className="p-4">
               <Routes>
               <Route>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
               </Route>
-              <Route>
+              <Route element={<Rootlayout/>}>
 
                 <Route path="/createExpense" element={<CreateExpense />} />
                 <Route path="/createShare" element={<CreateShare />} />
@@ -38,21 +32,10 @@ const App = () => {
 
               </Route>
             </Routes>
-          </div>
-        </div>
-          </div>
+      
   )
-}
-{
-  !token && (
-    <Routes>
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
-  )
-}
-      </div >
-  );
+
+
 };
 
 export default App;

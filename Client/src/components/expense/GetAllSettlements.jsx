@@ -14,7 +14,7 @@ const SettlementHistory = () => {
                     throw new Error('User not authenticated');
                 }
 
-                const response = await axios.get('http://localhost:4000/getSettlements', {
+                const response = await axios.get('https://expensetracker-rtqz.onrender.com/getSettlements', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

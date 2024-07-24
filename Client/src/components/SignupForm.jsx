@@ -36,7 +36,7 @@ const Signup = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4000/signup', formData);
+            const response = await axios.post('https://expensetracker-rtqz.onrender.com/signup', formData);
             if (response.data.success) {
                 navigate('/login');
             } else {
