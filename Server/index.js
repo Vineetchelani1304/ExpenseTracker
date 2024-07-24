@@ -13,7 +13,7 @@ const app = express();
 const PORT = 4000;
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173',"https://expensetracker-rtqz.onrender.com"],
     credentials: true
 }));
 app.listen(PORT, () => {
