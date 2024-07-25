@@ -28,6 +28,9 @@ const Signup = () => {
     const handleShowConfirm = ()=>{
         setShowConfirm((prev)=>!prev)
     }
+    const handleclick = ()=>{
+        navigate('/login');
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -117,6 +120,7 @@ const Signup = () => {
                     </button>
                 </form>
             </div>
+            <p className=" underline text-blue-600" onClick={handleclick}>Already have an account!</p>
         </div>
     );
 };
