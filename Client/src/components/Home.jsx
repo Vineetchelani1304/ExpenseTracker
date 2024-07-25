@@ -102,7 +102,7 @@ const Home = () => {
         <footer className="bg-purple-600 p-5">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p className="text-white text-sm">© {new Date().getFullYear()} Vi_Expense_Tracker. All rights reserved.</p>
-            <p className="text-white text-sm">Made with ❤️ by <a href="https://kartik-joshi-portfolio.vercel.app/" target="_blank" className="underline">Vineet Chelani</a></p>
+            <p className="text-white text-sm">Made with ❤️ by Vineet Chelani</p>
           </div>
         </footer>
 
