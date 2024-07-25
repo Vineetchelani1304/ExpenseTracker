@@ -119,8 +119,9 @@ const Signup = () => {
                         Sign Up
                     </button>
                 </form>
+                <p className=" underline text-blue-600" onClick={handleclick}>Already have an account!</p>
             </div>
-            <p className=" underline text-blue-600" onClick={handleclick}>Already have an account!</p>
+            
         </div>
     );
 };
