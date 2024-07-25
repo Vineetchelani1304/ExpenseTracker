@@ -78,6 +78,7 @@ const Login = () => {
                         Login
                     </button>
                 </form>
+                <p className='text-blue-400 underline hover:cursor-auto' onClick={()=>{navigate('/signup')}}}>Did'nt have an account!</p>
             </div>
         </div>
     );
