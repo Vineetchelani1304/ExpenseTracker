@@ -71,7 +71,7 @@ const ExpenseDetails = () => {
     
             if (response.data.success) {
                 setSettleSuccess('Expense settled successfully');
-                navigate('/');
+                navigate('/userExpenses');
             } else {
                 setSettleError(response.data.message);
             }
@@ -141,7 +141,7 @@ const ExpenseDetails = () => {
                     </button>
 
                     <button
-                        onClick={() => navigate('/')}
+                        onClick={() => navigate('/userExpenses')}
                         className="mt-4 bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition duration-200"
                     >
                         Back to Expenses

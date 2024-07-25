@@ -11,12 +11,14 @@ import Navbar from './components/Navbar';
 import SideBar from './components/SideBar';
 import { BarChart } from 'recharts';
 import Rootlayout from './components/layout/Rootlayout';
+import Home from './components/Home';
 
 
 const App = () => {
   const token = localStorage.getItem('token');
   return (
               <Routes>
+                <Route path="/" element={<Home/>}/>
               <Route>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
@@ -26,7 +28,7 @@ const App = () => {
                 <Route path="/createExpense" element={<CreateExpense />} />
                 <Route path="/createShare" element={<CreateShare />} />
                 <Route path="/createPersonal" element={<CreatePersonal />} />
-                <Route path="/" element={<UserExpenses />} />
+                <Route path="/userExpenses" element={<UserExpenses />} />
                 <Route path="/expenses/:expenseId" element={<ExpenseDetails />} />
                 <Route path="/bargraph" element={<BarChart />} />
 

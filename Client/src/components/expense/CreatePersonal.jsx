@@ -43,7 +43,7 @@ const CreatePersonal = () => {
             });
 
             if (response.data.success) {
-                navigate('/');
+                navigate('/userExpenses');
             } else {
                 setError(response.data.message);
             }
