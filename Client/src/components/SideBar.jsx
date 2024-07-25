@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const SideBar = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const token = localStorage.getItem('token')
 
     const toggleDropdown = () => {
         setDropdownOpen(!dropdownOpen);
@@ -21,7 +22,7 @@ const SideBar = () => {
                 </div>
                 <div
                     className="hover:bg-blue-200 border-slate-400 border-[1px] p-2 px-3 text-center text-slate-800 rounded-lg cursor-pointer"
-                    onClick={() => navigate('/')}
+                    onClick={() => token ? navigate('/userExpenses') : navigate('/login')}
                 >
                     Dashboard
                 </div>

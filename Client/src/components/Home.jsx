@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <div className="h-full bg-purple-100 overflow-hidden">
-      <Navbar />
+      {/* <Navbar /> */}
 
       <main className="overflow-scroll h-screen">
         <section className="bg-gradient-to-r from-blue-500 to-purple-400 py-12 sm:px-6 lg:px-8">

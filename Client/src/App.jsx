@@ -17,24 +17,23 @@ import Home from './components/Home';
 const App = () => {
   const token = localStorage.getItem('token');
   return (
-              <Routes>
-                <Route path="/" element={<Home/>}/>
-              <Route>
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
-              </Route>
-              <Route element={<Rootlayout/>}>
+    <Routes>
+      <Route>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
+      <Route element={<Rootlayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/createExpense" element={<CreateExpense />} />
+        <Route path="/createShare" element={<CreateShare />} />
+        <Route path="/createPersonal" element={<CreatePersonal />} />
+        <Route path="/userExpenses" element={<UserExpenses />} />
+        <Route path="/expenses/:expenseId" element={<ExpenseDetails />} />
+        <Route path="/bargraph" element={<BarChart />} />
 
-                <Route path="/createExpense" element={<CreateExpense />} />
-                <Route path="/createShare" element={<CreateShare />} />
-                <Route path="/createPersonal" element={<CreatePersonal />} />
-                <Route path="/userExpenses" element={<UserExpenses />} />
-                <Route path="/expenses/:expenseId" element={<ExpenseDetails />} />
-                <Route path="/bargraph" element={<BarChart />} />
+      </Route>
+    </Routes>
 
-              </Route>
-            </Routes>
-      
   )
 
 

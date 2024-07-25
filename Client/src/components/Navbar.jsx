@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [showUserDetails, setShowUserDetails] = useState(false);
@@ -6,10 +7,10 @@ const Navbar = () => {
     // Mock user data extraction from token (you may need to parse your actual token structure)
     const token = localStorage.getItem('token');
     const user = token ? JSON.parse(atob(token.split('.')[1])) : { email: 'user@example.com', name: 'John Doe' };
-
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.removeItem('token');
-        window.location.href = '/login'; // Redirect to login page or any other page
+        navigate('/'); // Redirect to login page or any other page
     };
     
     
