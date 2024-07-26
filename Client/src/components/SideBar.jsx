@@ -14,12 +14,7 @@ const SideBar = () => {
         <div className="flex flex-col text-center justify-center items-center">
             <div className="text-4xl font-bold text-blue-600 p-2">Expense Tracker</div>
             <div className="flex flex-col  mt-[10%] gap-4">
-                <div
-                    className="hover:bg-blue-200 border-slate-400 border-[1px] p-2 text-center text-slate-800 rounded-lg cursor-pointer"
-                    onClick={()=>{navigate('/')}}
-                >
-                    Home
-                </div>
+                
                 <div
                     className="hover:bg-blue-200 border-slate-400 border-[1px] p-2 px-3 text-center text-slate-800 rounded-lg cursor-pointer"
                     onClick={() => token ? navigate('/userExpenses') : navigate('/login')}
