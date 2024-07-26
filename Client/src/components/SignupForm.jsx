@@ -94,7 +94,7 @@ const Signup = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             required
                         />
-                        <div onClick={handleShow} className=' border-[1px] w-fit mt-2 bg-indigo-600 font-semibold text-white border-slate-400 p-1 rounded-md hover:scale-105'>{showPassword ? "hide" : "show"}</div>
+                        <div onClick={handleShow} className=' border-[1px] w-fit mt-2 bg-indigo-600 font-semibold text-white border-slate-400 hover:cursor-auto p-1 rounded-md hover:scale-105'>{showPassword ? "hide" : "show"}</div>
 
                     </div>
                     <div className="mb-4">
@@ -109,7 +109,7 @@ const Signup = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             required
                         />
-                        <div onClick={handleShowConfirm} className=' border-[1px] w-fit mt-2 bg-indigo-600 font-semibold text-white border-slate-400 p-1 rounded-md hover:scale-105'>{showConfirm ? "hide" : "show"}</div>
+                        <div onClick={handleShowConfirm} className=' border-[1px] w-fit mt-2 bg-indigo-600 font-semibold text-white border-slate-400 p-1 rounded-md hover:scale-105 hover:cursor-auto'>{showConfirm ? "hide" : "show"}</div>
 
                     </div>
                     <button
@@ -119,7 +119,7 @@ const Signup = () => {
                         Sign Up
                     </button>
                 </form>
-                <p className=" underline text-blue-600" onClick={handleclick}>Already have an account!</p>
+                <p className=" underline text-blue-600 hover:cursor-auto" onClick={handleclick}>Already have an account!</p>
             </div>
             
         </div>
