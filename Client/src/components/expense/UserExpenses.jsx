@@ -169,10 +169,10 @@ const UserExpenses = () => {
             </div>
 
             {/* Settlement History Section */}
-            <div className="mt-6 bg-white rounded-lg shadow-lg p-4">
+            {/* <div className="mt-6 bg-white rounded-lg shadow-lg p-4">
                 <h2 className="text-lg font-semibold mb-4 text-center">Settlement History</h2>
                 <SettlementHistory />
-            </div>
+            </div> */}
 
             {/* Floating Button to Create New Expense */}
             {expenses.length > 0 && (
