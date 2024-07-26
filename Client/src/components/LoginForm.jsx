@@ -69,7 +69,7 @@ const Login = () => {
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                             required
                         />
-                        <div onClick={handleShow} className=' border-[1px] w-fit mt-2 bg-indigo-600 text-white font-semibold  border-slate-400 p-1 rounded-md hover:scale-105 hover:cursor-auto'>{showPassword ? "hide" : "show"}</div>
+                        <div onClick={handleShow} className=' border-[1px] w-fit mt-2 bg-indigo-600 text-white font-semibold  border-slate-400 p-1 rounded-md hover:scale-105 hover:cursor-pointer'>{showPassword ? "hide" : "show"}</div>
                     </div>
                     <button
                         type="submit"
@@ -78,7 +78,7 @@ const Login = () => {
                         Login
                     </button>
                 </form>
-                <p className='text-blue-400 underline hover:cursor-auto' onClick={()=>{navigate('/signup')}}>Did'nt have an account!</p>
+                <p className='text-blue-400 underline hover:cursor-pointer' onClick={()=>{navigate('/signup')}}>Did'nt have an account!</p>
             </div>
         </div>
     );
