@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBars } from 'react-icons/fa'; // Ensure you have react-icons installed
+import { FaBars } from 'react-icons/fa';
 
 const SideBar = () => {
     const navigate = useNavigate();

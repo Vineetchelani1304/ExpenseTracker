@@ -51,41 +51,41 @@ const CreateExpense = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen  bg-slate-200">
-            <div className="bg-slate-800 p-8 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center text-slate-300">Create Expense</h2>
+        <div className="flex flex-col items-center justify-center min-h-screen  bg-slate-100">
+            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+                <h2 className="text-2xl font-bold mb-6 text-center text-slate-800">Create Expense</h2>
                 {error && <p className="text-red-500 mb-4">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="expenseHeading" className="block text-slate-400 mb-2">Expense Heading</label>
+                        <label htmlFor="expenseHeading" className="block text-slate-800 mb-2">Expense Heading</label>
                         <input
                             type="text"
                             id="expenseHeading"
                             value={expenseHeading}
                             onChange={(e) => setExpenseHeading(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                            className="w-full px-3 py-2 border border-gray-500 rounded-lg"
                             required
                             placeholder='Heading for Expense...'
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="descriptions" className="block  text-slate-400 mb-2">Descriptions</label>
+                        <label htmlFor="descriptions" className="block  text-slate-800 mb-2">Descriptions</label>
                         <textarea
                             id="descriptions"
                             value={descriptions}
                             onChange={(e) => setDescriptions(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                            className="w-full px-3 py-2 border border-gray-500 rounded-lg"
                             required
                             placeholder='Description...'
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="category" className="block  text-slate-400 mb-2">Category</label>
+                        <label htmlFor="category" className="block  text-slate-800 mb-2">Category</label>
                         <select
                             id="category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                            className="w-full px-3 py-2 border border-gray-500 rounded-lg"
                         >
                             <option value="share">Share</option>
                             <option value="personal">Personal</option>
