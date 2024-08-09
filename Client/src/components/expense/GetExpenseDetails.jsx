@@ -100,31 +100,31 @@ const ExpenseDetails = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-slate-200">
-            <div className="bg-slate-800 p-8 rounded-lg shadow-xl shadow-slate-900 w-fit max-w-4xl text-slate-200">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <div className="bg-white p-8 rounded-lg shadow-xl w-fit max-w-4xl text-black">
                 <h2 className="text-3xl font-bold mb-6 text-center">Expense Details</h2>
-                <h3 className="text-2xl text-slate-300 font-semibold mb-2">{expenseDetails.expenseHeading}</h3>
-                <p className=" mb-2 text-xl text-slate-200 ">{expenseDetails.descriptions}</p>
+                <h3 className="text-2xl text-slate-900 font-semibold mb-2">{expenseDetails.expenseHeading}</h3>
+                <p className=" mb-2 text-xl text-slate-700 ">{expenseDetails.descriptions}</p>
 
                 {expenseDetails.share ? (
                     <div>
                         <p className="text-blue-500">Shared Expense</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Items Bought: {expenseDetails.share.itemsBought.join(', ')}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Items Count: {expenseDetails.share.itemsCount}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Total Cost: ${expenseDetails.share.totalCost}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Per Head Cost: ${expenseDetails.share.perHead}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Who Paid: {expenseDetails.share.whoPaid}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Payment Done: {expenseDetails.share.paymentDone ? 'Yes' : 'No'}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Share Count Emails: {expenseDetails.share.shareCountEmail.join(', ')}</p>
-                        <p className=' text-slate-700 bg-slate-200 rounded-md p-1 mt-4'>Photos: {expenseDetails.share.photos}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Items Bought: {expenseDetails.share.itemsBought.join(', ')}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Items Count: {expenseDetails.share.itemsCount}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Total Cost: ${expenseDetails.share.totalCost}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Per Head Cost: ${expenseDetails.share.perHead}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Who Paid: {expenseDetails.share.whoPaid}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Payment Done: {expenseDetails.share.paymentDone ? 'Yes' : 'No'}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Share Count Emails: {expenseDetails.share.shareCountEmail.join(', ')}</p>
+                        <p className=' text-slate-900 bg-slate-500 rounded-md p-1 mt-4'>Photos: {expenseDetails.share.photos}</p>
                     </div>
                 ) : (
                     <div>
                         <p className="text-green-500">Personal Expense</p>
-                        <p className=' bg-slate-300 p-1 rounded-md text-slate-700 mt-4'>Items Bought: {expenseDetails.personal.itemsBought.join(', ')}</p>
-                        <p className=' bg-slate-300 p-1 rounded-md text-slate-700 mt-4'>Items Count: {expenseDetails.personal.itemsCount}</p>
-                        <p className=' bg-slate-300 p-1 rounded-md text-slate-700 mt-4'>Total Cost: ${expenseDetails.personal.totalCost}</p>
-                        <p className=' bg-slate-300 p-1 rounded-md text-slate-700 mt-4'>Photos: {expenseDetails.personal.photos}</p>
+                        <p className=' bg-slate-500 p-1 rounded-md text-slate-900 mt-4'>Items Bought: {expenseDetails.personal.itemsBought.join(', ')}</p>
+                        <p className=' bg-slate-500 p-1 rounded-md text-slate-900 mt-4'>Items Count: {expenseDetails.personal.itemsCount}</p>
+                        <p className=' bg-slate-500 p-1 rounded-md text-slate-900 mt-4'>Total Cost: ${expenseDetails.personal.totalCost}</p>
+                        <p className=' bg-slate-500 p-1 rounded-md text-slate-900 mt-4'>Photos: {expenseDetails.personal.photos}</p>
                     </div>
                 )}
 
