@@ -26,23 +26,23 @@ Clone the repository:
 
 Copy code
 git clone https:(https://github.com/Vineetchelani1304/ExpenseTracker.git)
+
 cd your-repo-name
 Install dependencies:
 
-bash
-Copy code
+Copy code :
 npm install
 
 Run the application:
 
-bash
-Copy code
+Copy code :
 npm run dev
 Open your browser and navigate to http://localhost:3000.
 
 
-Contact
+Contact :
 For any inquiries or feedback, feel free to reach out:
 
 Name: Vineet Chelani
+
 Email: vineetchelani545@gmail.com
