@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const SettlementHistory = () => {
@@ -14,7 +14,7 @@ const SettlementHistory = () => {
                     throw new Error('User not authenticated');
                 }
 
-                const response = await axios.get('https://expensetracker-rtqz.onrender.com/getSettlements', {
+                const response = await axios.get('http://localhost:4000/getSettlements', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

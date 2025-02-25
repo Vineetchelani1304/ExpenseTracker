@@ -34,7 +34,7 @@ const CreateShare = () => {
         }
 
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/createShare', {
+            const response = await axios.post('http://localhost:4000/createShare', {
                 expenseId,
                 itemsBought: itemsBought.split(',').map(item => item.trim()),
                 itemsCount,

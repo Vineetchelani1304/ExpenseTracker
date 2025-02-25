@@ -23,7 +23,7 @@ const CreateExpense = () => {
         }
 
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/createExpense', {
+            const response = await axios.post('http://localhost:4000/createExpense', {
                 expenseHeading,
                 descriptions,
             }, {

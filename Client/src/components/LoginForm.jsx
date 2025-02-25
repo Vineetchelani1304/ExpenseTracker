@@ -25,7 +25,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/login', formData);
+            const response = await axios.post('http://localhost:4000/login', formData);
             if (response.data.success) {
                 console.log("token", response.data.token)
                 localStorage.setItem('token', response.data.token);

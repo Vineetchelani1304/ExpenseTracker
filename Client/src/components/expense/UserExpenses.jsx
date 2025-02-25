@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -21,13 +21,14 @@ const UserExpenses = () => {
                     return;
                 }
 
-                const response = await axios.get('https://expensetracker-rtqz.onrender.com/getUserExpenses', {
+                const response = await axios.get('http://localhost:4000/getUserExpenses', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
 
                 if (response.data.success) {
+                    console.log(response.data)
                     setExpenses(response.data.data);
                     console.log("Expenses fetched:", response.data.data);
                 } else {
@@ -45,20 +46,41 @@ const UserExpenses = () => {
     }, [navigate]);
 
     // Calculate totals for personal and shared expenses
+    // const calculateTotals = () => {
+    //     let totalPersonal = 0;
+    //     let totalShared = 0;
+
+    //     expenses.forEach((expense) => {
+    //         console.log("expense",expense)
+    //         console.log(expense.share)
+    //         if (expense.share) {
+    //             totalShared += parseFloat(expense.share.totalCost); // Convert to float and add to totalShared
+    //         } else {
+    //             totalPersonal += parseFloat(expense.personal.totalCost); // Convert to float and add to totalPersonal
+    //         }
+    //     });
+
+    //     return { totalPersonal, totalShared };
+    // };
+
+
     const calculateTotals = () => {
         let totalPersonal = 0;
         let totalShared = 0;
-
+    
         expenses.forEach((expense) => {
-            if (expense.share) {
-                totalShared += parseFloat(expense.share.totalCost); // Convert to float and add to totalShared
-            } else {
-                totalPersonal += parseFloat(expense.personal.totalCost); // Convert to float and add to totalPersonal
+            console.log("expense", expense); // Debugging
+            
+            if (expense.share && expense.share.totalCost) {
+                totalShared += parseFloat(expense.share.totalCost) || 0;  // Avoid NaN
+            } else if (expense.personal && expense.personal.totalCost) {
+                totalPersonal += parseFloat(expense.personal.totalCost) || 0; // Avoid NaN
             }
         });
-
+    
         return { totalPersonal, totalShared };
     };
+    
 
     // Find the maximum total cost
     const findMaxTotalCost = () => {

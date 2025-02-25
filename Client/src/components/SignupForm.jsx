@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,7 +39,7 @@ const Signup = () => {
             return;
         }
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/signup', formData);
+            const response = await axios.post('http://localhost:4000/signup', formData);
             if (response.data.success) {
                 navigate('/login');
             } else {

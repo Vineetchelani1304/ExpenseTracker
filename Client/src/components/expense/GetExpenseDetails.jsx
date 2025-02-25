@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ const ExpenseDetails = () => {
     
             console.log('expenseId', expenseId);
     
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/settleExpense', {
+            const response = await axios.post('http://localhost:4000/settleExpense', {
                 expenseId,
             }, {
                 headers: {
