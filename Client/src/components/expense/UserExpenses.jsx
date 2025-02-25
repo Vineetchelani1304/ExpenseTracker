@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import SettlementHistory from './GetAllSettlements';
+// import SettlementHistory from './GetAllSettlements';
 
 const UserExpenses = () => {
     const [expenses, setExpenses] = useState([]);
