@@ -45,25 +45,7 @@ const UserExpenses = () => {
         fetchExpenses();
     }, [navigate]);
 
-    // Calculate totals for personal and shared expenses
-    // const calculateTotals = () => {
-    //     let totalPersonal = 0;
-    //     let totalShared = 0;
-
-    //     expenses.forEach((expense) => {
-    //         console.log("expense",expense)
-    //         console.log(expense.share)
-    //         if (expense.share) {
-    //             totalShared += parseFloat(expense.share.totalCost); // Convert to float and add to totalShared
-    //         } else {
-    //             totalPersonal += parseFloat(expense.personal.totalCost); // Convert to float and add to totalPersonal
-    //         }
-    //     });
-
-    //     return { totalPersonal, totalShared };
-    // };
-
-
+   
     const calculateTotals = () => {
         let totalPersonal = 0;
         let totalShared = 0;
