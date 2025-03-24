@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BACKEND_URL from '../utils/backendUrl';
 
 const Login = () => {
     const [showPassword,setShowPassword] = useState(false);
@@ -25,7 +26,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:4000/login', formData);
+            const response = await axios.post(`${BACKEND_URL}/login`, formData);
             if (response.data.success) {
                 console.log("token", response.data.token)
                 localStorage.setItem('token', response.data.token);

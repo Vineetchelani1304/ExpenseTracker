@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BACKEND_URL from '../../utils/backendUrl';
 
 const CreateExpense = () => {
     const [expenseHeading, setExpenseHeading] = useState('');
@@ -23,7 +24,7 @@ const CreateExpense = () => {
         }
 
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/createExpense', {
+            const response = await axios.post(`${BACKEND_URL}/createExpense`, {
                 expenseHeading,
                 descriptions,
             }, {

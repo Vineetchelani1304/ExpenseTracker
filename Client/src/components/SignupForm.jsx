@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BACKEND_URL from '../utils/backendUrl';
 
 const Signup = () => {
     const [showPassword,setShowPassword] = useState(false);
@@ -39,7 +40,7 @@ const Signup = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4000/signup', formData);
+            const response = await axios.post(`${BACKEND_URL}/signup`, formData);
             if (response.data.success) {
                 navigate('/login');
             } else {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import BACKEND_URL from '../../utils/backendUrl';
 
 const CreateShare = () => {
     const location = useLocation();
@@ -34,7 +35,7 @@ const CreateShare = () => {
         }
 
         try {
-            const response = await axios.post('https://expensetracker-rtqz.onrender.com/createShare', {
+            const response = await axios.post(`${BACKEND_URL}/createShare`, {
                 expenseId,
                 itemsBought: itemsBought.split(',').map(item => item.trim()),
                 itemsCount,
