@@ -2,6 +2,7 @@ import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import BACKEND_URL from '../../utils/backendUrl';
 // import SettlementHistory from './GetAllSettlements';
 
 const UserExpenses = () => {
@@ -21,7 +22,7 @@ const UserExpenses = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:4000/getUserExpenses', {
+                const response = await axios.get(`${BACKEND_URL}/getUserExpenses`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

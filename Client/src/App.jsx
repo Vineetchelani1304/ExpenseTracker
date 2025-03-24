@@ -12,7 +12,6 @@ import SideBar from './components/SideBar';
 import { BarChart } from 'recharts';
 import Rootlayout from './components/layout/Rootlayout';
 import Home from './components/Home';
-import QRCodeScanner from './components/QRCodeScanner';
 
 
 const App = () => {
@@ -31,8 +30,6 @@ const App = () => {
         <Route path="/userExpenses" element={<UserExpenses />} />
         <Route path="/expenses/:expenseId" element={<ExpenseDetails />} />
         <Route path="/bargraph" element={<BarChart />} />
-        <Route path="/scan" element={<QRCodeScanner />} />
-
       </Route>
     </Routes>
 
