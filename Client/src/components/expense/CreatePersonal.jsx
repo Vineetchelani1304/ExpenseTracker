@@ -66,6 +66,7 @@ const CreatePersonal = () => {
                         <label htmlFor="itemsBought" className="block text-gray-700 mb-2">Items Bought (comma separated)</label>
                         <input
                             type="text"
+                            placeholder='a,b,c'
                             id="itemsBought"
                             value={itemsBought}
                             onChange={(e) => setItemsBought(e.target.value)}
@@ -76,6 +77,7 @@ const CreatePersonal = () => {
                     <div className="mb-4">
                         <label htmlFor="itemsCount" className="block text-gray-700 mb-2">Items Count</label>
                         <input
+                            placeholder='1...'
                             type="number"
                             id="itemsCount"
                             value={itemsCount}
@@ -87,6 +89,7 @@ const CreatePersonal = () => {
                     <div className="mb-4">
                         <label htmlFor="totalCost" className="block text-gray-700 mb-2">Total Cost</label>
                         <input
+                        placeholder='$999'
                             type="number"
                             id="totalCost"
                             value={totalCost}

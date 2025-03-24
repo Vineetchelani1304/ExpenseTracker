@@ -93,6 +93,7 @@ const CreateShare = () => {
                     <div className="mb-4">
                         <label htmlFor="totalCost" className="block text-gray-700 mb-2">Total Cost</label>
                         <input
+                        placeholder='$99'
                             type="number"
                             id="totalCost"
                             value={totalCost}
@@ -104,6 +105,7 @@ const CreateShare = () => {
                     <div className="mb-4">
                         <label htmlFor="whoPaid" className="block text-gray-700 mb-2">Who Paid</label>
                         <input
+                        placeholder='abc@gmail.com'
                             type="text"
                             id="whoPaid"
                             value={whoPaid}
@@ -115,6 +117,7 @@ const CreateShare = () => {
                     <div className="mb-4">
                         <label htmlFor="paymentDone" className="block text-gray-700 mb-2">Payment Done</label>
                         <input
+                        placeholder='Yes / No'
                             type="text"
                             id="paymentDone"
                             value={paymentDone}
@@ -127,6 +130,7 @@ const CreateShare = () => {
                         <label htmlFor="shareCountEmail" className="block text-gray-700 mb-2">Share Count Email (comma separated)</label>
                         <input
                             type="text"
+                            placeholder='a@gmail.com, b@gmail.com, ....'
                             id="shareCountEmail"
                             value={shareCountEmail}
                             onChange={(e) => setShareCountEmail(e.target.value)}
