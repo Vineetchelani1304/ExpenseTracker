@@ -8,7 +8,7 @@ const { auth } = require('./middlewares/auth');
 const { createExpense, SettleExpense, getUserExpenses, getExpenseDetails } = require('./Controllers/Expense');
 const { createShare, CreatePersonal } = require('./Controllers/Category');
 const { deleteHistory, GetAllSettlements } = require('./Controllers/History');
-const { generateQRCode } = require('./Controllers/Payment');
+// const { generateQRCode } = require('./Controllers/Payment');
 
 const app = express();
 const PORT = 4000;
@@ -37,7 +37,7 @@ app.get('/getUserExpenses', auth, getUserExpenses);
 app.get('/getSettlements', auth, GetAllSettlements);
 app.get('/expenses/:expenseId', auth, getExpenseDetails);
 app.delete('/deleteHistory', auth, deleteHistory);
-app.post('/generate-qrcode', generateQRCode);
+// app.post('/generate-qrcode', generateQRCode);
 app.get('/', (req, res) => {
     res.send("hey there")
 })
