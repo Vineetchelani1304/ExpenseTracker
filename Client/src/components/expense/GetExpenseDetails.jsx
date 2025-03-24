@@ -49,7 +49,7 @@
 //         setSettleError('');
 //         setSettleSuccess('');
 //         setSettleLoading(true);
-    
+
 //         try {
 //             const token = localStorage.getItem('token');
 //             if (!token) {
@@ -57,9 +57,9 @@
 //                 setSettleLoading(false);
 //                 return;
 //             }
-    
+
 //             console.log('expenseId', expenseId);
-    
+
 //             const response = await axios.post('http://localhost:4000/settleExpense', {
 //                 expenseId,
 //             }, {
@@ -68,7 +68,7 @@
 //                 }
 //             });
 //             console.log("token", token)
-    
+
 //             if (response.data.success) {
 //                 setSettleSuccess('Expense settled successfully');
 //                 navigate('/userExpenses');
@@ -82,10 +82,10 @@
 //             setSettleLoading(false);
 //         }
 //     };
-    
-    
-    
-    
+
+
+
+
 
 //     if (loading) {
 //         return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
@@ -154,25 +154,27 @@
 
 // export default ExpenseDetails;
 
-
-
-
-
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QrCode } from 'lucide-react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
+import PropTypes from 'prop-types';
+
+const API_KEY = 'vayYbpQm44BSNiHzqyvb'; // Hardcoded API Key
+const BASE_URL = 'https://expensetracker-rtqz.onrender.com';
 
 const QRCodeScanner = ({ onScanSuccess }) => {
+QRCodeScanner.propTypes = {
+    onScanSuccess: PropTypes.func.isRequired,
+};
     useEffect(() => {
         const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
 
         scanner.render(
             (decodedText) => {
                 onScanSuccess(decodedText);
-                scanner.clear(); // Close scanner on successful scan
+                scanner.clear();
             },
             (error) => {
                 console.error(`QR Code Scan Error: ${error}`);
@@ -203,7 +205,7 @@ const ExpenseDetails = () => {
                     return;
                 }
 
-                const response = await axios.get(`http://localhost:4000/expenses/${expenseId}`, {
+                const response = await axios.get(`${BASE_URL}/expenses/${expenseId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -223,6 +225,74 @@ const ExpenseDetails = () => {
         fetchExpenseDetails();
     }, [expenseId]);
 
+    const generateReceipt = async (expenseDetails) => {
+        try {
+            console.log("Expense details:", expenseDetails);
+    
+            const expenseData = {
+                expenseHeading: expenseDetails.expenseHeading || 'N/A',
+                descriptions: expenseDetails.descriptions || 'N/A',
+                amount: expenseDetails.personal?.totalCost?.toString() || expenseDetails.amount?.toString() || '0',
+                itemsBought: expenseDetails.personal?.itemsBought?.join(', ') || 'N/A',
+                itemsCount: expenseDetails.personal?.itemsCount?.toString() || '0',
+                date: expenseDetails.createdAt
+                    ? new Date(expenseDetails.createdAt).toISOString().split('T')[0]
+                    : 'N/A',
+                paymentStatus: expenseDetails.isPaid ? 'Paid' : 'Pending'
+            };
+    
+            const response = await axios.post('https://api.pdfmonkey.io/api/v1/documents', {
+                document: {
+                    document_template_id: '3157EC41-B6FD-4462-9DB9-63227A4ECF00', // Ensure ID is correct
+                    data: expenseData
+                }
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${API_KEY}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            const documentId = response.data?.document?.id;
+            if (!documentId) throw new Error('Document ID not found.');
+    
+            const pollDocumentStatus = async () => {
+                const MAX_RETRIES = 30; // Increased retries
+                const DELAY = 4000;    // 4 seconds delay for better response handling
+                let attempt = 0;
+    
+                while (attempt < MAX_RETRIES) {
+                    const statusResponse = await axios.get(`https://api.pdfmonkey.io/api/v1/documents/${documentId}`, {
+                        headers: { 'Authorization': `Bearer ${API_KEY}` }
+                    });
+    
+                    const documentStatus = statusResponse.data?.document?.status;
+                    if (documentStatus === 'success') {
+                        const downloadUrl = statusResponse.data.document.download_url;
+                        window.open(downloadUrl, '_blank');
+                        return;
+                    }
+    
+                    if (documentStatus === 'failed') {
+                        throw new Error('Document generation failed.');
+                    }
+    
+                    await new Promise((resolve) => setTimeout(resolve, DELAY));
+                    attempt++;
+                }
+    
+                throw new Error('Document generation timed out. The API may be experiencing delays.');
+            };
+    
+            await pollDocumentStatus();
+        } catch (error) {
+            console.error('Error generating receipt:', error.response?.data || error.message);
+    
+            const errorDetails = error.response?.data?.errors || error.message;
+            alert(`Failed to generate receipt. Error: ${JSON.stringify(errorDetails)}`);
+        }
+    };
+     
     const handleScanSuccess = async (decodedText) => {
         try {
             const response = await axios.post('/api/payments/verify-payment', {
@@ -251,28 +321,9 @@ const ExpenseDetails = () => {
                 <h3 className="text-2xl text-slate-900 font-semibold mb-2">{expenseDetails.expenseHeading}</h3>
                 <p className="mb-2 text-xl text-slate-700">{expenseDetails.descriptions}</p>
 
-                <p className="text-lg font-semibold mt-2">Amount: ₹{expenseDetails.amount}</p>
+                <p className="text-lg font-semibold mt-2">Amount: ₹ </p>
                 <p className="text-lg">Date: {new Date(expenseDetails.date).toLocaleDateString()}</p>
                 <p className="text-lg">Payment Status: {expenseDetails.isPaid ? 'Paid' : 'Pending'}</p>
-
-                {expenseDetails.share ? (
-                    <div>
-                        <p className="text-blue-500">Shared Expense</p>
-                        <p className='text-slate-900 bg-slate-100 rounded-md p-1 mt-4'>
-                            Items Bought: {expenseDetails.share.itemsBought.join(', ')}
-                        </p>
-                        <p className='text-slate-900 bg-slate-100 rounded-md p-1 mt-2'>
-                            Participants: {expenseDetails.share.participants.join(', ')}
-                        </p>
-                    </div>
-                ) : (
-                    <div>
-                        <p className="text-green-500">Personal Expense</p>
-                        <p className='bg-slate-100 p-1 rounded-md text-slate-900 mt-4'>
-                            Items Bought: {expenseDetails.personal.itemsBought.join(', ')}
-                        </p>
-                    </div>
-                )}
 
                 <div className='flex flex-row justify-between'>
                     <button
@@ -288,6 +339,13 @@ const ExpenseDetails = () => {
                         className="mt-4 bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition duration-200"
                     >
                         Back to Expenses
+                    </button>
+
+                    <button
+                        className="mt-4 bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-200"
+                        onClick={() => generateReceipt(expenseDetails)}
+                    >
+                        Download Receipt
                     </button>
                 </div>
 

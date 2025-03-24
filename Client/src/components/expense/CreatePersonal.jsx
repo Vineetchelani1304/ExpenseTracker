@@ -31,7 +31,7 @@ const CreatePersonal = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:4000/createPersonal', {
+            const response = await axios.post('https://expensetracker-rtqz.onrender.com/createPersonal', {
                 expenseId,
                 itemsBought: itemsBought.split(',').map(item => item.trim()),
                 itemsCount,
