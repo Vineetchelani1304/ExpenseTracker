@@ -26,6 +26,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log("formData", formData)
             const response = await axios.post(`${BACKEND_URL}/login`, formData);
             if (response.data.success) {
                 console.log("token", response.data.token)
