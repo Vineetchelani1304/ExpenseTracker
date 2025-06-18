@@ -1,5 +1,5 @@
 const User = require('../Models/User.Model')
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 exports.Signup = async (req,res) => {
     try {
         const { name, email, password, confirmPassword} = req.body;
@@ -19,7 +19,7 @@ exports.Signup = async (req,res) => {
         const encryptedPass = await bcrypt.hash(password,10);
         
         const NewUser = await User.create({
-            name:name,email:email,password:encryptedPass
+            name:name,email:email,password
         });
 
 
