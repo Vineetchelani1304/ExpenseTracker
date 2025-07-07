@@ -2,8 +2,11 @@ const User = require('../Models/User.Model')
 const bcrypt = require('bcrypt')
 exports.Signup = async (req,res) => {
     try {
+        console.log("signup request body", req.body);
         const { name, email, password, confirmPassword} = req.body;
-        if(await User.findOne({email: email})){
+        const existingUser = await User.findOne({email: email})
+        console.log("existing user", existingUser);
+        if(existingUser){
             return res.status(400).json({
                 success: false,
                 message:"already registered"

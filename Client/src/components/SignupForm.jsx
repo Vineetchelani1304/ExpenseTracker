@@ -40,6 +40,9 @@ const Signup = () => {
             return;
         }
         try {
+            console.log("formData", formData)
+
+            console.log("backend url", BACKEND_URL)
             const response = await axios.post(`${BACKEND_URL}/signup`, formData);
             if (response.data.success) {
                 navigate('/login');
